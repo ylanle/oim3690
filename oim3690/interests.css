@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f8fb;
+  color: #24313d;
+  line-height: 1.6;
+}
+
+.page-header {
+  background-color: #24445c;
+  color: white;
+  padding: 28px 20px 48px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+nav a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  margin: 0;
+  font-size: 44px;
+}
+
+.page-header p {
+  margin: 12px auto 0;
+  max-width: 620px;
+  font-size: 18px;
+}
+
+main {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 0 20px;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(220px, 360px) 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.intro img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.intro,
+.interest-grid article {
+  background-color: white;
+  border: 1px solid #dbe5ec;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #24445c;
+}
+
+footer {
+  padding: 24px;
+  text-align: center;
+  color: #53616d;
+}
+
+@media (max-width: 760px) {
+  .intro,
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+}

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discount Calculator</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f3f6f8;
+        color: #26313a;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .checkout {
+        background-color: white;
+        border: 1px solid #dce4ea;
+        border-radius: 8px;
+        padding: 28px;
+        box-shadow: 0 8px 24px rgba(31, 48, 63, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 34px;
+      }
+
+      .subtitle {
+        margin: 0 0 28px;
+        color: #667581;
+      }
+
+      .form-row {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        border: 1px solid #bdc9d2;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      .member-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+      }
+
+      .member-row input {
+        width: 18px;
+        height: 18px;
+      }
+
+      button {
+        width: 100%;
+        border: 0;
+        border-radius: 6px;
+        background-color: #255f85;
+        color: white;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 13px 18px;
+      }
+
+      button:hover {
+        background-color: #1f4f70;
+      }
+
+      .summary {
+        margin-top: 28px;
+        border-top: 1px solid #dce4ea;
+        padding-top: 20px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 10px 0;
+        border-bottom: 1px solid #edf1f4;
+      }
+
+      .summary-row strong {
+        font-size: 20px;
+      }
+
+      .final-price {
+        color: #1b6b43;
+      }
+
+      .message {
+        min-height: 24px;
+        color: #a23b3b;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="checkout" aria-labelledby="checkout-title">
+        <h1 id="checkout-title">Checkout</h1>
+        <p class="subtitle">Enter your order total and membership status.</p>
+
+        <div class="form-row">
+          <label for="total">Order Total</label>
+          <input id="total" type="number" min="0" step="0.01" placeholder="Example: 125.50" />
+        </div>
+
+        <div class="form-row">
+          <label class="member-row">
+            <input id="member" type="checkbox" />
+            I am a member
+          </label>
+        </div>
+
+        <button type="button" onclick="calculate()">Calculate</button>
+
+        <p id="message" class="message"></p>
+
+        <div class="summary" aria-live="polite">
+          <div class="summary-row">
+            <span>Discount Percentage</span>
+            <strong id="discount-percent">0%</strong>
+          </div>
+          <div class="summary-row">
+            <span>Amount Saved</span>
+            <strong id="amount-saved">$0.00</strong>
+          </div>
+          <div class="summary-row">
+            <span>Final Price</span>
+            <strong id="final-price" class="final-price">$0.00</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function getDiscount(total, isMember) {
+        if (total >= 100 && isMember) {
+          return 20;
+        } else if (total >= 100 || isMember) {
+          return 10;
+        } else {
+          return 0;
+        }
+      }
+
+      function calculate() {
+        let totalInput = document.getElementById("total");
+        let total = Number(totalInput.value);
+        let isMember = document.getElementById("member").checked;
+        let message = document.getElementById("message");
+
+        if (total < 0 || totalInput.value === "") {
+          message.textContent = "Please enter a valid order total.";
+          return;
+        }
+
+        let discount = getDiscount(total, isMember);
+        let amountSaved = total * (discount / 100);
+        let finalPrice = total - amountSaved;
+
+        message.textContent = "";
+
+        document.getElementById("discount-percent").textContent = discount + "%";
+        document.getElementById("amount-saved").textContent = "$" + amountSaved.toFixed(2);
+        document.getElementById("final-price").textContent = "$" + finalPrice.toFixed(2);
+      }
+    </script>
+  </body>
+</html>

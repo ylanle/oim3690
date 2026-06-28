@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+</head>
+<body>
+  <h1>Temperature Converter</h1>
+
+  <section>
+    <h2>Celsius to Fahrenheit</h2>
+    <label for="celsius">Celsius:</label>
+    <input id="celsius" type="number">
+    <button onclick="convertToFahrenheit()">Convert</button>
+    <p id="fahrenheit-result"></p>
+  </section>
+
+  <section>
+    <h2>Fahrenheit to Celsius</h2>
+    <label for="fahrenheit">Fahrenheit:</label>
+    <input id="fahrenheit" type="number">
+    <button onclick="convertToCelsius()">Convert</button>
+    <p id="celsius-result"></p>
+  </section>
+
+  <script>
+    function toFahrenheit(celsius) {
+      return celsius * 9 / 5 + 32;
+    }
+
+    function toCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+
+    function convertToFahrenheit() {
+      let celsius = Number(document.getElementById("celsius").value);
+      let fahrenheit = toFahrenheit(celsius);
+      document.getElementById("fahrenheit-result").textContent =
+        celsius + "°C is " + fahrenheit.toFixed(1) + "°F";
+    }
+
+    function convertToCelsius() {
+      let fahrenheit = Number(document.getElementById("fahrenheit").value);
+      let celsius = toCelsius(fahrenheit);
+      document.getElementById("celsius-result").textContent =
+        fahrenheit + "°F is " + celsius.toFixed(1) + "°C";
+    }
+  </script>
+</body>
+</html>
