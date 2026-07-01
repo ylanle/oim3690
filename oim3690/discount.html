@@ -7,33 +7,67 @@
     <style>
       body {
         margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: #f3f6f8;
-        color: #26313a;
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        background-color: #fff1f6;
+        color: #3f2a34;
       }
 
       main {
-        max-width: 760px;
-        margin: 40px auto;
-        padding: 0 20px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 36px 20px;
       }
 
-      .checkout {
-        background-color: white;
-        border: 1px solid #dce4ea;
+      .page-header {
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        color: #b64f78;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      .checkout-layout {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .checkout,
+      .receipt {
+        background-color: #fffafc;
+        border: 1px solid #f4bfd1;
         border-radius: 8px;
-        padding: 28px;
-        box-shadow: 0 8px 24px rgba(31, 48, 63, 0.08);
+        box-shadow: 0 12px 28px rgba(176, 82, 118, 0.14);
       }
 
       h1 {
         margin: 0 0 8px;
-        font-size: 34px;
+        font-size: 42px;
+        color: #783652;
       }
 
       .subtitle {
-        margin: 0 0 28px;
-        color: #667581;
+        margin: 0 auto;
+        max-width: 620px;
+        color: #7a5865;
+        font-size: 18px;
+      }
+
+      .checkout {
+        padding: 28px;
+      }
+
+      .checkout h2,
+      .receipt h2 {
+        margin: 0 0 18px;
+        color: #783652;
       }
 
       .form-row {
@@ -49,29 +83,42 @@
       input[type="number"] {
         width: 100%;
         box-sizing: border-box;
-        padding: 12px;
-        border: 1px solid #bdc9d2;
+        padding: 13px;
+        border: 1px solid #e6a9bd;
         border-radius: 6px;
+        background-color: white;
+        color: #3f2a34;
         font-size: 16px;
+      }
+
+      input[type="number"]:focus {
+        border-color: #c75f88;
+        outline: 3px solid #f9d4e2;
       }
 
       .member-row {
         display: flex;
         align-items: center;
         gap: 10px;
+        background-color: #ffe5ef;
+        border: 1px solid #f5bfd2;
+        border-radius: 8px;
         font-weight: bold;
+        margin: 0;
+        padding: 14px;
       }
 
       .member-row input {
         width: 18px;
         height: 18px;
+        accent-color: #c75f88;
       }
 
       button {
         width: 100%;
         border: 0;
         border-radius: 6px;
-        background-color: #255f85;
+        background-color: #c75f88;
         color: white;
         cursor: pointer;
         font-size: 17px;
@@ -80,29 +127,61 @@
       }
 
       button:hover {
-        background-color: #1f4f70;
+        background-color: #a94870;
+      }
+
+      .member-note {
+        background-color: #fff0b8;
+        border: 1px solid #f0d66f;
+        border-radius: 8px;
+        margin: 22px 0 0;
+        padding: 16px;
+      }
+
+      .member-note h3 {
+        color: #7a5b12;
+        margin: 0 0 6px;
+      }
+
+      .member-note p {
+        margin: 0;
       }
 
       .summary {
-        margin-top: 28px;
-        border-top: 1px solid #dce4ea;
-        padding-top: 20px;
+        margin-top: 10px;
       }
 
       .summary-row {
         display: flex;
         justify-content: space-between;
         gap: 18px;
-        padding: 10px 0;
-        border-bottom: 1px solid #edf1f4;
+        padding: 14px 0;
+        border-bottom: 1px solid #f6d4df;
       }
 
       .summary-row strong {
         font-size: 20px;
       }
 
+      .receipt {
+        padding: 24px;
+      }
+
+      .receipt-total {
+        background-color: #ffe5ef;
+        border-radius: 8px;
+        margin-top: 18px;
+        padding: 16px;
+      }
+
+      .receipt-total .summary-row {
+        border-bottom: 0;
+        padding: 0;
+      }
+
       .final-price {
-        color: #1b6b43;
+        color: #9a315f;
+        font-size: 26px;
       }
 
       .message {
@@ -110,45 +189,84 @@
         color: #a23b3b;
         font-weight: bold;
       }
+
+      @media (max-width: 760px) {
+        .checkout-layout {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 34px;
+        }
+      }
     </style>
   </head>
   <body>
     <main>
-      <section class="checkout" aria-labelledby="checkout-title">
+      <header class="page-header">
+        <p class="eyebrow">Pastel Pink Checkout</p>
         <h1 id="checkout-title">Checkout</h1>
-        <p class="subtitle">Enter your order total and membership status.</p>
+        <p class="subtitle">
+          Enter your order total, choose whether you are a member, and calculate
+          your discount instantly.
+        </p>
+      </header>
 
-        <div class="form-row">
-          <label for="total">Order Total</label>
-          <input id="total" type="number" min="0" step="0.01" placeholder="Example: 125.50" />
-        </div>
+      <div class="checkout-layout">
+        <section class="checkout" aria-labelledby="details-title">
+          <h2 id="details-title">Order Details</h2>
 
-        <div class="form-row">
-          <label class="member-row">
-            <input id="member" type="checkbox" />
-            I am a member
-          </label>
-        </div>
-
-        <button type="button" onclick="calculate()">Calculate</button>
-
-        <p id="message" class="message"></p>
-
-        <div class="summary" aria-live="polite">
-          <div class="summary-row">
-            <span>Discount Percentage</span>
-            <strong id="discount-percent">0%</strong>
+          <div class="form-row">
+            <label for="total">Order Total</label>
+            <input id="total" type="number" min="0" step="0.01" placeholder="Example: 125.50" />
           </div>
-          <div class="summary-row">
-            <span>Amount Saved</span>
-            <strong id="amount-saved">$0.00</strong>
+
+          <div class="form-row">
+            <label class="member-row">
+              <input id="member" type="checkbox" />
+              I am a member
+            </label>
           </div>
-          <div class="summary-row">
-            <span>Final Price</span>
-            <strong id="final-price" class="final-price">$0.00</strong>
+
+          <button type="button" onclick="calculate()">Calculate Discount</button>
+
+          <p id="message" class="message"></p>
+
+          <div class="member-note">
+            <h3>Discount Rules</h3>
+            <p>
+              Members and orders of $100 or more receive discounts. Members
+              with orders of $100 or more receive the best discount.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <aside class="receipt" aria-labelledby="receipt-title" aria-live="polite">
+          <h2 id="receipt-title">Order Summary</h2>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong id="subtotal">$0.00</strong>
+            </div>
+            <div class="summary-row">
+              <span>Discount Applied</span>
+              <strong id="discount-percent">0%</strong>
+            </div>
+            <div class="summary-row">
+              <span>Amount Saved</span>
+              <strong id="amount-saved">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="receipt-total">
+            <div class="summary-row">
+              <span>Final Price</span>
+              <strong id="final-price" class="final-price">$0.00</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
     </main>
 
     <script>
@@ -179,6 +297,7 @@
 
         message.textContent = "";
 
+        document.getElementById("subtotal").textContent = "$" + total.toFixed(2);
         document.getElementById("discount-percent").textContent = discount + "%";
         document.getElementById("amount-saved").textContent = "$" + amountSaved.toFixed(2);
         document.getElementById("final-price").textContent = "$" + finalPrice.toFixed(2);
